@@ -1,0 +1,25 @@
+################################################################################
+# SWA Docker Compose
+# Run the local development stack: Root dir will be mmounted to /service
+################################################################################
+
+version: "3"
+
+services:
+  macromodel:
+    #build: https://github.com/nyfelix/swa-macromodel.git
+    image: fnyffene/swa-macromodel:latest
+    environment:
+      - TZ=Europe/Bern
+    volumes:
+      - .:/webservice
+      - model-mockup:/model
+      - READATA:/rea-data
+    ports:
+      - "5000:5000"
+
+volumes:
+  READATA:
+
+networks:
+  swa-net:

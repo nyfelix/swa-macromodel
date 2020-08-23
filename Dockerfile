@@ -4,19 +4,16 @@ RUN apk add --no-cache git
 
 WORKDIR /model
 
-RUN pip install -U pip wheel
+COPY model-mockup/*.py .
+#RUN pip install -U pip wheel
 #RUN pip install --no-cache-dir git+https://gitlab.com/hsr-iet/smartwaterproject/swconsumption.git@master
 
 WORKDIR /webservice
-
-RUN pip install Flask
 COPY *.py .
-ENV FLASK_APP=service.py
-# enviroment variable to use as argument
-#ENV level ""
-
-
+COPY requirements.txt .
+RUN pip install -r requirements.txt
 
 EXPOSE 5000
 
-CMD flask run
+ENTRYPOINT ["python"]
+CMD ["service.py"]
